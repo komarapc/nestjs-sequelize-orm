@@ -1,13 +1,7 @@
 import { sequelize } from '@app/config/database';
 import { DataTypes, Model } from 'sequelize';
 
-class User extends Model {
-	public toJSON(): object {
-		const values = { ...this.get() };
-		delete values.password;
-		return values;
-	}
-}
+class User extends Model {}
 User.init(
 	{
 		id: {
