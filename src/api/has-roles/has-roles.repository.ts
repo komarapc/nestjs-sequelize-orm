@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HasRoleCreateSchema } from './has-roles.schema';
-import { HasRoles } from '@app/models/default';
+import { HasRoles, Roles } from '@app/models/default';
 
 @Injectable()
 export class HasRoleRepository {
@@ -18,5 +18,19 @@ export class HasRoleRepository {
 	async destroy(id: string) {
 		const result = await HasRoles.destroy({ where: { id } });
 		return result;
+	}
+
+	async getByUserId(user_id: string) {
+		return await HasRoles.findAll({
+			where: { user_id },
+			attributes: ['id'],
+			include: [
+				{
+					model: Roles,
+					as: 'role',
+					attributes: ['id', 'name'],
+				},
+			],
+		});
 	}
 }
