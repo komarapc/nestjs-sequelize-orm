@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Res } from '@nestjs/common';
 import { HasRolesService } from './has-roles.service';
 import { HasRoleCreateSchema } from './has-roles.schema';
 import { Response } from 'express';
@@ -9,6 +9,12 @@ export class HasRolesController {
 	@Post()
 	async store(@Body() body: HasRoleCreateSchema, @Res() res: Response) {
 		const result = await this.hasRoleService.store(body);
+		res.status(result.status_code).json(result);
+	}
+
+	@Delete(':id')
+	async destroy(@Param('id') id: string, @Res() res: Response) {
+		const result = await this.hasRoleService.destroy(id);
 		res.status(result.status_code).json(result);
 	}
 }
