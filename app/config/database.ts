@@ -1,11 +1,9 @@
 import { Sequelize } from 'sequelize';
 import { DATABASE_URL } from './app';
 import * as db_default from '@app/models/default';
-const config = {
-	databaseUrl: DATABASE_URL,
-};
+
 // connection default
-export const connection = new Sequelize(config.databaseUrl, { logging: false });
+export const connection = new Sequelize(DATABASE_URL, { logging: false });
 
 /**
  * add more connections if needed
