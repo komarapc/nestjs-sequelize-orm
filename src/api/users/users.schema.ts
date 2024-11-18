@@ -9,10 +9,16 @@ export const createUserSchema = z.object({
 export const queryUserSchema = z.object({
 	name: z.string().min(2).optional(),
 	email: z.string().email().optional(),
-	start_date: z.date().optional(),
-	end_date: z.date().optional(),
-	page: z.number().int().positive().optional().default(1),
-	limit: z.number().int().positive().optional().default(10),
+	start_date: z
+		.string()
+		.transform((str) => new Date(str))
+		.optional(),
+	end_date: z
+		.string()
+		.transform((str) => new Date(str))
+		.optional(),
+	page: z.string().optional().transform(Number),
+	limit: z.string().optional().transform(Number),
 });
 
 export type CreateUserSchema = z.infer<typeof createUserSchema>;
