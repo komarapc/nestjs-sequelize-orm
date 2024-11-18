@@ -1,6 +1,6 @@
 import { connection } from '@app/config/database';
 import { DataTypes, Model } from 'sequelize';
-
+import * as uuid from 'uuid';
 class Roles extends Model {}
 
 Roles.init(
@@ -8,6 +8,7 @@ Roles.init(
 		id: {
 			type: DataTypes.STRING,
 			primaryKey: true,
+			defaultValue: () => uuid.v7(),
 		},
 		name: {
 			type: DataTypes.STRING,
