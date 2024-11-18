@@ -1,4 +1,4 @@
-import { User } from '@app/models/default';
+import { HasRoles, Roles, User } from '@app/models/default';
 import { Injectable } from '@nestjs/common';
 import { v7 } from 'uuid';
 import { QueryUserSchema, UpdateUserSchema } from './users.schema';
@@ -37,6 +37,21 @@ export class UsersRepository {
 		const whereClause = this.buildWhereClause(query);
 		const { count, rows } = await User.findAndCountAll({
 			where: whereClause,
+			include: [
+				{
+					model: HasRoles,
+					as: 'has_roles',
+					foreignKey: 'user_id',
+					attributes: ['id'],
+					include: [
+						{
+							model: Roles,
+							as: 'role',
+							attributes: ['id', 'name', 'description'],
+						},
+					],
+				},
+			],
 			offset: (page - 1) * limit,
 			limit: limit,
 		});
@@ -49,8 +64,7 @@ export class UsersRepository {
 	}
 
 	async store(user: UserInterface) {
-		const id = v7();
-		const newUser = User.create({ ...user, id });
+		const newUser = User.create({ ...user });
 		return newUser;
 	}
 

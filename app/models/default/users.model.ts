@@ -1,12 +1,14 @@
 import { connection } from '@app/config/database';
 import { DataTypes, Model } from 'sequelize';
-
+import * as uuid from 'uuid';
+import HasRoles from './has-roles.model';
 class User extends Model {}
 User.init(
 	{
 		id: {
 			type: DataTypes.STRING,
 			primaryKey: true,
+			defaultValue: () => uuid.v7(),
 		},
 		name: {
 			type: DataTypes.STRING,
@@ -23,11 +25,12 @@ User.init(
 		},
 	},
 	{
+		modelName: 'users',
 		sequelize: connection,
 		tableName: 'users',
 		timestamps: true,
 		paranoid: true,
 	},
 );
-User.sync({ alter: true, logging: false });
+
 export default User;

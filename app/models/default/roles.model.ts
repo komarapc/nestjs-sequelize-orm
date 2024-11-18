@@ -1,6 +1,8 @@
 import { connection } from '@app/config/database';
 import { DataTypes, Model } from 'sequelize';
 import * as uuid from 'uuid';
+import HasRoles from './has-roles.model'; // Ensure this import is correct
+
 class Roles extends Model {}
 
 Roles.init(
@@ -26,5 +28,4 @@ Roles.init(
 		paranoid: true,
 	},
 );
-Roles.sync();
 export default Roles;
