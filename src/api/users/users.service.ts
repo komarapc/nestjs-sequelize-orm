@@ -10,6 +10,7 @@ import {
 import { z } from 'zod';
 import * as bcrypt from 'bcrypt';
 import { excludeObjectFields, metaPagination } from '@app/utils';
+import { User } from '@app/models';
 @Injectable()
 export class UsersService {
 	constructor(private readonly userRepo: UsersRepository) {}
@@ -84,6 +85,27 @@ export class UsersService {
 					errors: formattedErrors,
 				});
 			}
+			return responseJson({
+				status_code: 'INTERNAL_SERVER_ERROR',
+				errors: error.message,
+			});
+		}
+	}
+	async findOneById(id: string) {
+		try {
+			let user = await this.userRepo.getById(id);
+			if (!user)
+				return responseJson({
+					status_code: 'NOT_FOUND',
+					message: 'User not found',
+				});
+			user = excludeObjectFields(user.toJSON(), ['password']);
+			return responseJson({
+				status_code: 'OK',
+				message: 'Success',
+				data: user,
+			});
+		} catch (error) {
 			return responseJson({
 				status_code: 'INTERNAL_SERVER_ERROR',
 				errors: error.message,

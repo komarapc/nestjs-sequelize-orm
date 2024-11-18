@@ -1,4 +1,4 @@
-export const excludeObjectFields = <T>(obj: T, fields: Array<keyof T>) => {
+export const excludeObjectFields = <T>(obj: T, fields: string[]) => {
 	const newObj = { ...obj };
 	fields.forEach((field) => {
 		delete newObj[field];
