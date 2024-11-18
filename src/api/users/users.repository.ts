@@ -58,7 +58,7 @@ export class UsersRepository {
 		return { count, users: rows };
 	}
 
-	async getById(id: string) {
+	async findOneById(id: string) {
 		const users = User.findByPk(id);
 		return users;
 	}
@@ -87,5 +87,9 @@ export class UsersRepository {
 		const user = await User.findByPk(id);
 		await user.destroy({ force: false });
 		return user;
+	}
+
+	async findOneByEmail(email: string) {
+		return await User.findOne({ where: { email } });
 	}
 }

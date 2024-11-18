@@ -21,7 +21,7 @@ export class HasRoleRepository {
 	}
 
 	async getByUserId(user_id: string) {
-		return await HasRoles.findAll({
+		const data = await HasRoles.findAll({
 			where: { user_id },
 			attributes: ['id'],
 			include: [
@@ -31,6 +31,13 @@ export class HasRoleRepository {
 					attributes: ['id', 'name'],
 				},
 			],
+		});
+		return data.map((item) => {
+			const role = item.toJSON();
+			return {
+				id: role.role.id,
+				name: role.role.name,
+			};
 		});
 	}
 }

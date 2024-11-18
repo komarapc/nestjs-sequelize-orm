@@ -6,3 +6,4 @@ export const APP_PORT = process.env.APP_PORT || 3000;
 export const APP_DEBUG = process.env.APP_DEBUG === 'true' || false;
 
 export const DATABASE_URL = process.env.DATABASE_URL || '';
+export const JWT_SECRET = process.env.JWT_SECRET || 'Secret123!@#';

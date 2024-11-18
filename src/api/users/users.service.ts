@@ -68,7 +68,7 @@ export class UsersService {
 	}
 	async findOneById(id: string) {
 		try {
-			let user = await this.userRepo.getById(id);
+			let user = await this.userRepo.findOneById(id);
 			if (!user) return responseNotFound('User not found');
 			user = excludeObjectFields(user.toJSON(), ['password']);
 			return responseOk(user);
@@ -79,7 +79,7 @@ export class UsersService {
 	async update(id: string, user: UpdateUserSchema) {
 		try {
 			const existUser: UserInterface = (
-				await this.userRepo.getById(id)
+				await this.userRepo.findOneById(id)
 			).toJSON();
 			if (!existUser || existUser.deletedAt)
 				return responseNotFound('User not found');
@@ -105,7 +105,7 @@ export class UsersService {
 
 	async destroy(id: string) {
 		try {
-			const existUser = await this.userRepo.getById(id);
+			const existUser = await this.userRepo.findOneById(id);
 			if (!existUser || existUser.toJSON().deletedAt)
 				return responseNotFound('User not found');
 			await this.userRepo.destroy(id);
