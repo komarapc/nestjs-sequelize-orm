@@ -48,3 +48,13 @@ export const zodErrorHandle = (error: any) => {
 	}
 	return { hasError, errors };
 };
+
+export const filteredEmptyObj = (data: any) => {
+	const filteredData = Object.fromEntries(
+		Object.entries(data).filter(
+			([_, v]) => v !== undefined && v !== null && v !== '',
+		),
+	);
+	const length = Object.keys(filteredData).length;
+	return { data: filteredData, length };
+};
