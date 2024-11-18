@@ -3,11 +3,16 @@ import { DATABASE_URL } from './app';
 const config = {
 	databaseUrl: DATABASE_URL,
 };
-export const sequelize = new Sequelize(config.databaseUrl, { logging: false });
+// connection default
+export const connection = new Sequelize(config.databaseUrl, { logging: false });
+
+/**
+ * add more connections if needed
+ */
 
 export const establishConnection = async () => {
 	try {
-		await sequelize.authenticate();
+		await connection.authenticate();
 	} catch (error) {
 		// exit
 		console.error('Unable to connect to the database:', error);

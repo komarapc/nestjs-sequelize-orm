@@ -1,4 +1,4 @@
-import { User } from '@app/models';
+import { User } from '@app/models/default';
 import { Injectable } from '@nestjs/common';
 import { v7 } from 'uuid';
 import { QueryUserSchema, UpdateUserSchema } from './users.schema';

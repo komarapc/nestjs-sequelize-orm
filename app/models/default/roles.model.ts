@@ -1,4 +1,4 @@
-import { sequelize } from '@app/config/database';
+import { connection } from '@app/config/database';
 import { DataTypes, Model } from 'sequelize';
 
 class Roles extends Model {}
@@ -19,7 +19,7 @@ Roles.init(
 		},
 	},
 	{
-		sequelize,
+		sequelize: connection,
 		tableName: 'roles',
 		timestamps: true,
 		paranoid: true,

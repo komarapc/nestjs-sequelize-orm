@@ -1,4 +1,4 @@
-import { sequelize } from '@app/config/database';
+import { connection } from '@app/config/database';
 import { DataTypes, Model } from 'sequelize';
 
 class User extends Model {}
@@ -23,7 +23,7 @@ User.init(
 		},
 	},
 	{
-		sequelize,
+		sequelize: connection,
 		tableName: 'users',
 		timestamps: true,
 		paranoid: true,
