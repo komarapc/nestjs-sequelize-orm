@@ -68,4 +68,10 @@ export class UsersRepository {
 		await user.update(filteredData);
 		return user;
 	}
+
+	async destroy(id: string) {
+		const user = await User.findByPk(id);
+		await user.destroy({ force: false });
+		return user;
+	}
 }

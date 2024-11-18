@@ -102,4 +102,16 @@ export class UsersService {
 			return responseInternalServerError(error.message);
 		}
 	}
+
+	async destroy(id: string) {
+		try {
+			const existUser = await this.userRepo.getById(id);
+			if (!existUser || existUser.toJSON().deletedAt)
+				return responseNotFound('User not found');
+			await this.userRepo.destroy(id);
+			return responseOk('User deleted successfully');
+		} catch (error) {
+			return responseInternalServerError(error.message);
+		}
+	}
 }

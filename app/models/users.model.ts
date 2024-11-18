@@ -21,16 +21,12 @@ User.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		deletedAt: {
-			type: DataTypes.DATE,
-			allowNull: true,
-		},
 	},
 	{
 		sequelize,
 		tableName: 'users',
 		timestamps: true,
-		deletedAt: 'destroyTime',
+		paranoid: true,
 	},
 );
 User.sync({ alter: true, logging: false });
