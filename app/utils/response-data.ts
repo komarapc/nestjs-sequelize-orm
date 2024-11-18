@@ -49,3 +49,82 @@ export const responseJson = (props: ResponseDataProps): ResponseData => ({
 	data: props.data,
 	errors: props.errors,
 });
+
+export const responseCreated = (data: any) => {
+	return responseJson({
+		status_code: 'CREATED',
+		message: 'Success',
+		data,
+	});
+};
+
+export const responseOk = (data: any) => {
+	return responseJson({
+		status_code: 'OK',
+		message: 'Success',
+		data,
+	});
+};
+
+export const responseNotFound = (message: string) => {
+	return responseJson({
+		status_code: 'NOT_FOUND',
+		message,
+	});
+};
+
+export const responseBadRequest = (errors: any) => {
+	return responseJson({
+		status_code: 'BAD_REQUEST',
+		errors,
+	});
+};
+
+export const responseUnauthorized = (message: string) => {
+	return responseJson({
+		status_code: 'UNAUTHORIZED',
+		message,
+	});
+};
+
+export const responseForbidden = (message: string) => {
+	return responseJson({
+		status_code: 'FORBIDDEN',
+		message,
+	});
+};
+
+export const responseInternalServerError = (message: string) => {
+	return responseJson({
+		status_code: 'INTERNAL_SERVER_ERROR',
+		message,
+	});
+};
+
+export const responseConflict = (message: string) => {
+	return responseJson({
+		status_code: 'CONFLICT',
+		message,
+	});
+};
+
+export const responseUnprocessableEntity = (errors: any) => {
+	return responseJson({
+		status_code: 'UNPROCESSABLE_ENTITY',
+		errors,
+	});
+};
+
+export const responseTooManyRequests = (message: string) => {
+	return responseJson({
+		status_code: 'TOO_MANY_REQUESTS',
+		message,
+	});
+};
+
+export const responseServiceUnavailable = (message: string) => {
+	return responseJson({
+		status_code: 'SERVICE_UNAVAILABLE',
+		message,
+	});
+};

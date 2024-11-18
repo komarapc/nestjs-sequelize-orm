@@ -4,13 +4,18 @@ import {
 	Get,
 	HttpStatus,
 	Param,
+	Patch,
 	Post,
 	Query,
 	Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { query, Response } from 'express';
-import { CreateUserSchema, QueryUserSchema } from './users.schema';
+import {
+	CreateUserSchema,
+	QueryUserSchema,
+	UpdateUserSchema,
+} from './users.schema';
 
 @Controller('users')
 export class UsersController {
@@ -31,6 +36,16 @@ export class UsersController {
 	@Get(':id')
 	async getById(@Res() res: Response, @Param('id') id: string) {
 		const result = await this.userService.findOneById(id);
+		res.status(result.status_code).json(result);
+	}
+
+	@Patch(':id')
+	async update(
+		@Param('id') id: string,
+		@Body() body: UpdateUserSchema,
+		@Res() res: Response,
+	) {
+		const result = await this.userService.update(id, body);
 		res.status(result.status_code).json(result);
 	}
 }

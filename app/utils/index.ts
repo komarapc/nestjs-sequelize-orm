@@ -1,3 +1,9 @@
+import { z } from 'zod';
+import {
+	responseBadRequest,
+	responseInternalServerError,
+} from './response-data';
+
 export const excludeObjectFields = <T>(obj: T, fields: string[]) => {
 	const newObj = { ...obj };
 	fields.forEach((field) => {
@@ -27,4 +33,18 @@ export const metaPagination = (query: QueryPagination, total: number) => {
 		prev_page: prevPage,
 	};
 	return pagination;
+};
+
+export const zodErrorHandle = (error: any) => {
+	let hasError = false;
+	let errors = [];
+	if (error instanceof z.ZodError) {
+		const formattedErrors = error.errors.map((err) => ({
+			name: err.path.join('.'),
+			message: err.message,
+		}));
+		hasError = true;
+		errors = formattedErrors;
+	}
+	return { hasError, errors };
 };

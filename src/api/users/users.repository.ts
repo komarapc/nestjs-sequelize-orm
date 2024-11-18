@@ -1,7 +1,7 @@
 import { User } from '@app/models';
 import { Injectable } from '@nestjs/common';
 import { v7 } from 'uuid';
-import { QueryUserSchema } from './users.schema';
+import { QueryUserSchema, UpdateUserSchema } from './users.schema';
 import { Op } from 'sequelize';
 export interface UserInterface {
 	id?: string;
@@ -56,5 +56,16 @@ export class UsersRepository {
 
 	async findByEmail(email: string) {
 		return User.findOne({ where: { email } });
+	}
+
+	async update(id: string, data: UpdateUserSchema) {
+		const user = await User.findByPk(id);
+		const filteredData = Object.fromEntries(
+			Object.entries(data).filter(
+				([_, value]) => value !== null && value !== '' && value !== undefined,
+			),
+		);
+		await user.update(filteredData);
+		return user;
 	}
 }
