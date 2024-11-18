@@ -22,7 +22,7 @@ import { RolesRepository } from '../roles/roles.repository';
 		RolesRepository,
 	],
 })
-export class AuthModule {
+export class AuthModule implements NestModule {
 	configure(consumer: MiddlewareConsumer) {
 		consumer
 			.apply(BearerMiddleware)

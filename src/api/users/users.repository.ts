@@ -1,6 +1,5 @@
 import { HasRoles, Roles, User } from '@app/models/default';
 import { Injectable } from '@nestjs/common';
-import { v7 } from 'uuid';
 import { QueryUserSchema, UpdateUserSchema } from './users.schema';
 import { Op } from 'sequelize';
 export interface UserInterface {
