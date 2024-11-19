@@ -17,9 +17,7 @@ import {
 } from '@app/utils/response-data';
 import * as bcrypt from 'bcrypt';
 import { excludeObjectFields, zodErrorHandle } from '@app/utils';
-import { JwtPayload } from 'jsonwebtoken';
 import { RolesRepository } from '../roles/roles.repository';
-import { JWT_SECRET } from '@app/config/app';
 
 type PayloadToken = {
 	user_id: string;
