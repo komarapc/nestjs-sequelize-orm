@@ -6,10 +6,14 @@ import { UsersModule } from './api/users/users.module';
 import { RolesModule } from './api/roles/roles.module';
 import { HasRolesModule } from './api/has-roles/has-roles.module';
 import { AuthModule } from './api/auth/auth.module';
-
+import config from '@app/config';
 @Module({
 	imports: [
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot({
+			isGlobal: true,
+			expandVariables: true,
+			load: [config],
+		}),
 		UsersModule,
 		RolesModule,
 		HasRolesModule,

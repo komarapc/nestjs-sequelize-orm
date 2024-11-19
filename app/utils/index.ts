@@ -1,8 +1,4 @@
 import { z } from 'zod';
-import {
-	responseBadRequest,
-	responseInternalServerError,
-} from './response-data';
 
 export const excludeObjectFields = <T>(obj: T, fields: string[]) => {
 	const newObj = { ...obj };
